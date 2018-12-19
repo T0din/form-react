@@ -118,12 +118,12 @@ class App extends Component {
         { view === 'name' && (
           <div className="welcomeName">
            Welcome {data}
-            {/* <a
+            <a
               className="app-link app-link--back"
-              onClick={this.onChangeView('login')}
+              onClick={this.changeView('login')}
             >
-              {data.link}
-            </a> */}
+              Retour
+            </a>
           </div>
         )}
       </div>
