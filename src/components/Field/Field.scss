@@ -1,0 +1,53 @@
+@import 'src/styles/vars';
+
+.field {
+  position: relative;
+  &-input {
+    padding: .6em 1.2em;
+    width: 100%;
+    margin: 1em 0;
+    font-size: 1.3em;
+    border: 1px solid $color-input-border;
+    height: 3em;
+  }
+
+  &-input--has-content {
+    padding-top: 1.5em;
+  }
+
+  &-input:focus {
+    border-color: $color-input-border--focus;
+  }
+
+  &-label {
+    position: absolute;
+    top: 2.8em; 
+    left: 2.3em;
+    font-family: 'Source sans pro', sans-serif;
+    text-transform: uppercase;
+    font-size: .7em;
+    color:$color-input-label;
+    display: none;
+  }
+
+  &-input--has-content + &-label {
+    display: block;
+  }
+
+  &-input:focus + &-label {
+    color: $color-input-label--focus;
+    animation: fadeInAndUp .5s both;
+  }
+  
+}
+
+@keyframes fadeInAndUp {
+  0% {
+    opacity: 0;
+    transform: translateY(1em)
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0)
+  }
+}
