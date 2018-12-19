@@ -59,6 +59,23 @@ class App extends Component {
       });
   };
 
+  handlePassword = (event) => {
+    event.preventDefault();
+    axios.post('http://localhost:3000/forgot', {
+      email: this.state.email,
+    })
+      .then((response) => {
+        console.log(response.data);
+        this.setState({
+          view: 'login',
+          password: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
 
   // componentDidMount() {
   //   // Cette méthode est appelée une seule fois après le render
@@ -114,6 +131,7 @@ class App extends Component {
             email={email}
             onChangeView={this.changeView('login')}
             onChangeInput={this.changeInput}
+            onHandlePassword={this.handlePassword}
           />) }
         { view === 'name' && (
           <div className="welcomeName">

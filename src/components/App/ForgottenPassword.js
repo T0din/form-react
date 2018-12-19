@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Field from 'src/components/Field';
 
-const ForgottenPassword = ({ onChangeView, onChangeInput, email, data }) => (
+const ForgottenPassword = ({ onChangeView, onChangeInput, email, data, onHandlePassword }) => (
   <div id="login">
     <a
       className="app-link app-link--back"
@@ -14,14 +14,22 @@ const ForgottenPassword = ({ onChangeView, onChangeInput, email, data }) => (
     <div className="app-desc">
       {data.description}
     </div>
-    <form className="form">
+    <form
+      className="form"
+      onSubmit={onHandlePassword}
+    >
       <Field
         placeholder={data.placeholder1}
         handleChange={onChangeInput}
         name="email"
         value={email}
       />
-      <button className="form-submit" type="submit">{data.button}</button>
+      <button
+        className="form-submit"
+        type="submit"
+      >
+        {data.button}
+      </button>
     </form>
 
   </div>
