@@ -3,14 +3,17 @@ import PropTypes from 'prop-types';
 import Field from 'src/components/Field';
 
 const Login = ({
-  onChangeView, onChangeInput, email, password, data,
+  onChangeView, onChangeInput, email, password, data, onHandleLogin,
 }) => (
   <div id="login">
     <h1 className="app-title">{data.title}</h1>
     <div className="app-desc">
       {data.description}
     </div>
-    <form className="form">
+    <form
+      className="form"
+      onSubmit={onHandleLogin}
+    >
       <Field
         value={email}
         handleChange={onChangeInput}
@@ -23,7 +26,12 @@ const Login = ({
         name="password"
         placeholder={data.placeholder2}
       />
-      <button className="form-submit form-submit--login" type="submit">{data.button}</button>
+      <button
+        className="form-submit form-submit--login"
+        type="submit"
+      >
+        {data.button}
+      </button>
     </form>
     <a
       className="app-link"
@@ -37,6 +45,7 @@ const Login = ({
 Login.propTypes = {
   onChangeView: PropTypes.func.isRequired,
   onChangeInput: PropTypes.func.isRequired,
+  onHandleLogin: PropTypes.func.isRequired,
   email: PropTypes.string,
   password: PropTypes.string,
   data: PropTypes.shape({

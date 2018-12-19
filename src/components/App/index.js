@@ -15,7 +15,6 @@ class App extends Component {
 
   constructor() {
     super();
-    console.log('Coucou depuis le constructor');
     this.state = {
       view: 'login',
       lang: 'fr',
@@ -40,45 +39,55 @@ class App extends Component {
     this.setState({
       [name]: value,
     });
-  }
+  };
 
-  componentDidMount() {
-    // Cette méthode est appelée une seule fois après le render
-    // Utilisier axios
-    // POur poster state.email et state.password à mon api de login
-    // En cas de succès, je peux modifier mon state
-    // En cas d'erreur, je peux aussi modifier mon state, ou alors prevenir l'user de l'echec
-
-    // Avec Axios faire une requete post sur l'adresse: localhost:3000/login
-
-    // Toujours avec axios faire une requete sur localhost:3000/forget en envoyant email
-
-    axios.post('http://localhost3000/login')
-    .then((response) => {
-    // handle success
-      console.log(response);
+  handleLogin = (event) => {
+    event.preventDefault();
+    axios.post('http://localhost:3000/login', {
+      email: this.state.email,
+      password: this.state.password,
     })
-    .catch((error) => {
-    // handle error
-      console.log(error);
-    });
+      .then((response) => {
+        console.log(response.data);
+        this.setState({
+          view: 'name',
+          data: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-    // axios.post('/user', {
-    //   firstName: 'Fred',
-    //   lastName: 'Flintstone',
-    // })
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-  }
+
+  // componentDidMount() {
+  //   // Cette méthode est appelée une seule fois après le render
+  //   // Utilisier axios
+  //   // POur poster state.email et state.password à mon api de login
+  //   // En cas de succès, je peux modifier mon state
+  //   // En cas d'erreur, je peux aussi modifier mon state, ou alors prevenir l'user de l'echec
+
+  //   // Avec Axios faire une requete post sur l'adresse: localhost:3000/login
+
+  //   // Toujours avec axios faire une requete sur localhost:3000/forget en envoyant email
+
+  //   axios.post('http://localhost:3000/login', {
+  //     email: this.state.email,
+  //     password: this.state.password,
+  //   })
+  //     .then((response) => {
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
+
 
   render() {
-    console.log('coucou depuis le render');
+    // console.log('coucou depuis le render');
     const {
-      view, email, password, lang,
+      view, email, password, lang, data,
     } = this.state;
     // Pour automatiser par exemple un menu avec toutes les langues
     // const listeDeLangues = Object.keys(textData);
@@ -97,6 +106,7 @@ class App extends Component {
             password={password}
             onChangeView={this.changeView('password')}
             onChangeInput={this.changeInput}
+            onHandleLogin={this.handleLogin}
           />) }
         { view === 'password' && (
           <ForgottenPassword
@@ -105,6 +115,17 @@ class App extends Component {
             onChangeView={this.changeView('login')}
             onChangeInput={this.changeInput}
           />) }
+        { view === 'name' && (
+          <div className="welcomeName">
+           Welcome {data}
+            {/* <a
+              className="app-link app-link--back"
+              onClick={this.onChangeView('login')}
+            >
+              {data.link}
+            </a> */}
+          </div>
+        )}
       </div>
     );
   }
